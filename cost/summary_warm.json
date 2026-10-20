@@ -1,0 +1,66 @@
+{
+  "budget_usd": 0.5,
+  "enrich_stats": {
+    "batches_dispatched": 0,
+    "completed_texts": 0,
+    "cost_usd": 0.0,
+    "failed_requests": 0,
+    "input_tokens": 0,
+    "invalid_items": 0,
+    "output_tokens": 0,
+    "phase": "resume",
+    "quarantined_texts": 0,
+    "requests": 0,
+    "retries_api": 0,
+    "wall_clock_s": 0.0
+  },
+  "ingestion_report": {
+    "distinct_nonempty_texts": 100,
+    "elapsed_s": 0.0,
+    "empty_text_rows": 0,
+    "input_csv": "/Users/elizabethbuse/Desktop/Agentic AI/spotify-pipeline/assignment/cost_100.csv",
+    "most_common_duplicate_text_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "nonempty_rows": 100,
+    "pending_distinct_texts": 0,
+    "rows": 100,
+    "rows_in_duplicate_texts": 0,
+    "selected_distinct_texts": 100,
+    "selected_rows": 100,
+    "selection_rule": "lowest SHA-256('berkeley-fall-2026-assignment-5-v1:'+review_id) among nonempty rows, target=all, plus forced ids=0",
+    "text_length_chars": {
+      "max": 486,
+      "mean": 80.4,
+      "median": 44.5,
+      "p95": 306
+    }
+  },
+  "input": "/Users/elizabethbuse/Desktop/Agentic AI/spotify-pipeline/assignment/cost_100.csv",
+  "label_config": "claude-haiku-5-5+think-off+enrich-p1+schema-v1",
+  "records": {
+    "cache_reuse": 0,
+    "completed": 100,
+    "quarantined": {}
+  },
+  "run_id": "pilot_cold",
+  "stage_seconds": {
+    "enrich": 0.0,
+    "prepare": 0.003,
+    "profile": 0.001,
+    "rank": 0.001,
+    "records": 0.001
+  },
+  "total_wall_clock_s": 0.05,
+  "verify": "cached (inputs unchanged): zero new calls",
+  "workers": 1
+}

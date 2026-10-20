@@ -1,0 +1,89 @@
+{
+  "budget_usd": 17.0,
+  "enrich_stats": {
+    "batches_dispatched": 5,
+    "completed_texts": 227,
+    "cost_usd": 0.0328136,
+    "failed_requests": 0,
+    "input_tokens": 22622,
+    "invalid_items": 6,
+    "output_tokens": 3679,
+    "phase": "resume",
+    "prior_spend_usd": 15.33879,
+    "quarantined_texts": 0,
+    "requests": 6,
+    "retries_api": 0,
+    "wall_clock_s": 6.76
+  },
+  "ingestion_report": {
+    "distinct_nonempty_texts": 484189,
+    "elapsed_s": 11.54,
+    "empty_text_rows": 13,
+    "input_csv": "/Users/elizabethbuse/Desktop/Agentic AI/Final Assignment - Spotify Reviews Dataset/spotify_reviews_18months.csv",
+    "most_common_duplicate_text_counts": [
+      12845,
+      5551,
+      4096,
+      3948,
+      3359,
+      3136,
+      2769,
+      2134,
+      1973,
+      1901
+    ],
+    "nonempty_rows": 660609,
+    "pending_distinct_texts": 227,
+    "rows": 660622,
+    "rows_in_duplicate_texts": 192342,
+    "selected_distinct_texts": 181628,
+    "selected_rows": 240000,
+    "selection_rule": "lowest SHA-256('berkeley-fall-2026-assignment-5-v1:'+review_id) among nonempty rows, target=240000, plus forced ids=50",
+    "text_length_chars": {
+      "max": 1693,
+      "mean": 74.8,
+      "median": 32,
+      "p95": 305
+    }
+  },
+  "input": "/Users/elizabethbuse/Desktop/Agentic AI/Final Assignment - Spotify Reviews Dataset/spotify_reviews_18months.csv",
+  "label_config": "claude-haiku-5-5+think-off+enrich-p1+schema-v1",
+  "records": {
+    "cache_reuse": 58372,
+    "completed": 240000,
+    "quarantined": {
+      "empty_review_text": 13,
+      "not_selected_budget_scope": 420609
+    }
+  },
+  "run_id": "full_official",
+  "stage_seconds": {
+    "enrich": 7.285,
+    "group": 78.752,
+    "memo": 26.067,
+    "prepare": 11.642,
+    "profile": 4.442,
+    "rank": 2.064,
+    "records": 4.097,
+    "verify": 18.03
+  },
+  "total_wall_clock_s": 155.65,
+  "verify": {
+    "cost_usd": 0.07735,
+    "declared_sample_rule": "lowest SHA-256('verify:'+review_id) among completed original records",
+    "disagreements_flagged": 266,
+    "intent_agreement": 0.883,
+    "planted_error_test": {
+      "cases": 25,
+      "flagged": 25,
+      "synthetic": true
+    },
+    "sample_size": 1000,
+    "severity_exact_agreement": 0.847,
+    "severity_mean_abs_diff": 0.157,
+    "topic_agreement": 0.83,
+    "verifier_failed": 0,
+    "verifier_model": "claude-haiku-5-5"
+  },
+  "workers": 4
+}

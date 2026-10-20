@@ -1,0 +1,60 @@
+{
+ "pilot_100_cold": {
+  "enrich_requests_ok": 2,
+  "enrich_failed_attempts": 0,
+  "reviews_sent": 100,
+  "input_tokens": 6576,
+  "output_tokens": 1549,
+  "input_tokens_per_review": 65.76,
+  "output_tokens_per_review": 15.49,
+  "cost_by_role_usd": {
+   "enrich": 0.01146,
+   "verify": 0.00197,
+   "group": 0.01526,
+   "memo": 0.04675
+  }
+ },
+ "checkpoint_500": {
+  "enrich_requests_ok": 11,
+  "enrich_failed_attempts": 0,
+  "reviews_sent": 481,
+  "input_tokens": 33347,
+  "output_tokens": 7459,
+  "input_tokens_per_review": 69.33,
+  "output_tokens_per_review": 15.51,
+  "cost_by_role_usd": {
+   "enrich": 0.05651
+  }
+ },
+ "analysis_10000": {
+  "enrich_requests_ok": 182,
+  "enrich_failed_attempts": 0,
+  "reviews_sent": 8465,
+  "input_tokens": 576214,
+  "output_tokens": 131092,
+  "input_tokens_per_review": 68.07,
+  "output_tokens_per_review": 15.49,
+  "cost_by_role_usd": {
+   "enrich": 0.98534
+  }
+ },
+ "official_run_batch_api_103k_texts": {
+  "reviews_sent": 103681,
+  "input_tokens": 7122671,
+  "output_tokens": 1606501,
+  "enrich_failed_attempts": 0,
+  "enrich_requests_ok": 2074,
+  "input_tokens_per_review": 68.7,
+  "output_tokens_per_review": 15.49,
+  "tier": "batch"
+ },
+ "final_run_sync_calls_(incl. first interrupted/resumed 100k-row portion)": {
+  "reviews_sent": 78864,
+  "input_tokens": 5550391,
+  "output_tokens": 1217302,
+  "enrich_failed_attempts": 0,
+  "enrich_requests_ok": 1717,
+  "input_tokens_per_review": 70.38,
+  "output_tokens_per_review": 15.44
+ }
+}

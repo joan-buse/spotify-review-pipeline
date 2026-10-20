@@ -1,0 +1,80 @@
+[enrich] batches 20/1156 cost $0.1192 elapsed 14s
+[enrich] batches 40/1156 cost $0.2411 elapsed 27s
+[enrich] batches 60/1156 cost $0.3550 elapsed 40s
+[enrich] batches 80/1156 cost $0.4736 elapsed 52s
+[enrich] batches 100/1156 cost $0.5912 elapsed 64s
+[enrich] batches 120/1156 cost $0.7085 elapsed 77s
+[enrich] batches 140/1156 cost $0.8278 elapsed 88s
+[enrich] batches 160/1156 cost $0.9471 elapsed 101s
+[enrich] batches 180/1156 cost $1.0684 elapsed 114s
+[enrich] batches 200/1156 cost $1.1803 elapsed 126s
+[enrich] batches 220/1156 cost $1.3028 elapsed 139s
+[enrich] batches 240/1156 cost $1.4179 elapsed 151s
+[enrich] batches 260/1156 cost $1.5396 elapsed 164s
+[enrich] batches 280/1156 cost $1.6602 elapsed 176s
+[enrich] batches 300/1156 cost $1.7765 elapsed 189s
+[enrich] batches 320/1156 cost $1.8964 elapsed 201s
+[enrich] batches 340/1156 cost $2.0156 elapsed 214s
+[enrich] batches 360/1156 cost $2.1313 elapsed 226s
+[enrich] batches 380/1156 cost $2.2511 elapsed 238s
+[enrich] batches 400/1156 cost $2.3684 elapsed 253s
+[enrich] batches 420/1156 cost $2.4893 elapsed 265s
+[enrich] batches 440/1156 cost $2.6079 elapsed 277s
+[enrich] batches 460/1156 cost $2.7240 elapsed 290s
+[enrich] batches 480/1156 cost $2.8499 elapsed 302s
+[enrich] batches 500/1156 cost $2.9655 elapsed 315s
+[enrich] batches 520/1156 cost $3.0835 elapsed 327s
+[enrich] batches 540/1156 cost $3.2106 elapsed 340s
+[enrich] batches 560/1156 cost $3.3242 elapsed 354s
+[enrich] batches 580/1156 cost $3.4450 elapsed 367s
+[enrich] batches 600/1156 cost $3.5614 elapsed 380s
+[enrich] batches 620/1156 cost $3.6783 elapsed 392s
+[enrich] batches 640/1156 cost $3.7972 elapsed 405s
+[enrich] batches 660/1156 cost $3.9192 elapsed 418s
+[enrich] batches 680/1156 cost $4.0318 elapsed 430s
+[enrich] batches 700/1156 cost $4.1522 elapsed 443s
+[enrich] batches 720/1156 cost $4.2720 elapsed 457s
+[enrich] batches 740/1156 cost $4.3889 elapsed 472s
+[enrich] batches 760/1156 cost $4.5072 elapsed 483s
+[enrich] batches 780/1156 cost $4.6255 elapsed 496s
+[enrich] batches 800/1156 cost $4.7421 elapsed 509s
+[enrich] batches 820/1156 cost $4.8600 elapsed 523s
+[enrich] batches 840/1156 cost $4.9825 elapsed 536s
+[enrich] batches 860/1156 cost $5.0994 elapsed 549s
+[enrich] batches 880/1156 cost $5.2203 elapsed 562s
+[enrich] batches 900/1156 cost $5.3442 elapsed 575s
+[enrich] batches 920/1156 cost $5.4623 elapsed 589s
+[enrich] batches 940/1156 cost $5.5832 elapsed 602s
+[enrich] batches 960/1156 cost $5.7018 elapsed 615s
+[enrich] batches 980/1156 cost $5.8188 elapsed 627s
+[enrich] batches 1000/1156 cost $5.9392 elapsed 639s
+[enrich] batches 1020/1156 cost $6.0542 elapsed 652s
+[enrich] batches 1040/1156 cost $6.1802 elapsed 665s
+[enrich] batches 1060/1156 cost $6.2958 elapsed 678s
+[enrich] batches 1080/1156 cost $6.4142 elapsed 690s
+[enrich] batches 1100/1156 cost $6.5329 elapsed 702s
+[enrich] batches 1120/1156 cost $6.6560 elapsed 715s
+[enrich] batches 1140/1156 cost $6.7691 elapsed 727s
+{
+ "run_id": "full",
+ "records": {
+  "completed": 99895,
+  "cache_reuse": 21898,
+  "quarantined": {
+   "not_selected_budget_scope": 560609,
+   "model_stage_failure": 105,
+   "empty_review_text": 13
+  }
+ },
+ "stage_seconds": {
+  "prepare": 8.541,
+  "profile": 4.418,
+  "enrich": 739.185,
+  "records": 3.057,
+  "rank": 1.254,
+  "verify": 12.14,
+  "group": 67.478,
+  "memo": 25.147
+ },
+ "total_wall_clock_s": 864.19
+}

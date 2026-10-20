@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spotify Review Insights</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#16181a;--mut:#667;--line:#e3e3df;--acc:#1a7f4b;--acc2:#2b5fd9;--warn:#b4570a;--bar:#2b5fd9}
+@media (prefers-color-scheme:dark){:root{--bg:#101214;--card:#181b1e;--ink:#eceeef;--mut:#9aa1a8;--line:#2a2e32;--acc:#4cc38a;--acc2:#7aa2ff;--warn:#f0a35c;--bar:#7aa2ff}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:20px 16px 4px;max-width:1100px;margin:auto}h1{margin:0;font-size:22px}header p{margin:4px 0 0;color:var(--mut);font-size:13px}
+main{max-width:1100px;margin:auto;padding:12px 16px 60px;display:grid;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:hidden}
+h2{font-size:16px;margin:0 0 10px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.k{border:1px solid var(--line);border-radius:8px;padding:10px}.k b{display:block;font-size:20px}.k span{color:var(--mut);font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:600}tr.click{cursor:pointer}tr.click:hover{background:rgba(120,120,120,.08)}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:10px;background:var(--bar);border-radius:3px;min-width:2px}.row{display:grid;grid-template-columns:110px 1fr 70px;gap:8px;align-items:center;margin:3px 0;font-size:13px}
+.memo h1,.memo h2,.memo h3{font-size:15px;margin:14px 0 6px}.memo p,.memo li{font-size:14px}.memo code{background:rgba(120,120,120,.15);padding:0 4px;border-radius:3px}
+.cite{color:var(--acc2);cursor:pointer;font-size:12px;text-decoration:underline dotted}.q{color:var(--mut);font-size:13px}.tag{display:inline-block;padding:0 6px;border-radius:9px;font-size:11px;border:1px solid var(--line);color:var(--mut)}
+.note{font-size:12px;color:var(--mut)}.warn{color:var(--warn)}details summary{cursor:pointer}
+.scroll{overflow-x:auto}select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px}
+</style></head><body>
+<header><h1>Spotify review insights</h1><p>Self-selected historical Google Play reviews, May 2022 – Nov 2023. Classified by a multi-stage model pipeline; all numbers below are read from the database through the backend API (no model calls here).</p></header>
+<main>
+<section class="card"><h2>Overall metrics</h2><div class="grid" id="kpis"></div><p class="note" id="scopenote"></p></section>
+<section class="card"><h2>Recommendation (AI-generated from saved aggregates)</h2><div class="memo" id="memo">Loading…</div><p class="note">Bracketed IDs like <span class="cite">C005</span> are claim IDs: click to see the saved calculation. Review IDs link to the source evidence.</p></section>
+<section class="card"><h2>Issue ranking <span class="note">priority = complaint count × mean severity (= severity sum); ties by issue ID</span></h2><div class="scroll"><table id="rank"></table></div></section>
+<section class="card" id="evidence" hidden><h2 id="evtitle"></h2><p id="evsum" class="note"></p><div class="scroll"><table id="evtable"></table></div></section>
+<section class="card"><h2>Topic mix</h2><div id="topics"></div></section>
+<section class="card"><h2>Complaint share over time <select id="topicSel"></select></h2><div id="trend"></div><p class="note">Share = complaint/cancellation records ÷ classified records in the month. First and last months are partial. Sampled coverage; reviews are self-selected.</p></section>
+<section class="card"><h2>Quality &amp; evidence</h2><div id="quality" class="grid"></div><details><summary>System tests and limitations</summary><div id="limits" class="note"></div></details></section>
+</main>
+<script>
+const $=s=>document.querySelector(s),fmt=n=>Number(n).toLocaleString(),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const get=u=>fetch(u).then(r=>r.json());let CLAIMS={};
+function md(t){return esc(t).replace(/^### (.*)$/gm,'<h3>$1</h3>').replace(/^## (.*)$/gm,'<h2>$1</h2>').replace(/^# (.*)$/gm,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>')
+ .replace(/^\s*[-•] (.*)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n{2,}/g,'</p><p>').replace(/\[(C\d{3})\]/g,'<span class="cite" data-c="$1">$1</span>')
+ .replace(/\b([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\b/g,'<span class="cite" data-r="$1">$1</span>').replace(/\b((?:access|usability|playback|downloads|catalog|billing|support|other)\.[a-z]\d)\b/g,'<span class="cite" data-i="$1">$1</span>')}
+function bars(el,data,label,val,max){el.innerHTML=data.map(d=>`<div class="row"><span>${esc(d[label])}</span><div class="bar" style="width:${Math.max(1,100*d[val]/max)}%"></div><span class="n">${fmt(d[val])}</span></div>`).join('')}
+async function openIssue(id){const d=await get('/api/issues/'+id),i=d.issue;$('#evidence').hidden=false;$('#evtitle').textContent=`${id}: ${i?.title||''}`;
+ $('#evsum').textContent=i?`${i.summary} — ${fmt(i.complaint_count)} complaints, severity sum ${fmt(i.severity_sum)}, mean ${i.mean_severity}. Showing the 15 highest-severity members.`:'';
+ $('#evtable').innerHTML='<tr><th>review_id</th><th>month</th><th>intent</th><th class="n">sev</th><th>evidence quote (exact source text)</th></tr>'+d.evidence.map(e=>`<tr><td><code>${e.review_id}</code></td><td>${e.month}</td><td>${e.intent}</td><td class="n">${e.severity}</td><td class="q">${esc(e.evidence_quote)}</td></tr>`).join('');$('#evidence').scrollIntoView({behavior:'smooth'})}
+document.addEventListener('click',async e=>{const t=e.target;if(t.dataset.i)openIssue(t.dataset.i);
+ if(t.dataset.c){const c=CLAIMS[t.dataset.c];alert(c?`${t.dataset.c}: ${c.issue_id} ${c.metric} = ${c.value} (from ranking.csv, recomputed by the checker)`:'unknown claim')}
+ if(t.dataset.r){const r=await get('/api/review/'+t.dataset.r);alert(r?`${r.review_id}\n${r.topic}.${r.subtopic} · ${r.intent} · severity ${r.severity}\n"${r.evidence_quote}"`:'not in classified set')}
+ const tr=t.closest('tr.click');if(tr)openIssue(tr.dataset.id)});
+(async()=>{
+ const [o,rk,rec,tr]=await Promise.all([get('/api/overview'),get('/api/ranking'),get('/api/recommendation'),get('/api/trend')]);
+ CLAIMS=Object.fromEntries((rec.claims||[]).map(c=>[c.claim_id,c]));
+ const g=o.golden||{},v=o.verify||{};
+ $('#kpis').innerHTML=[['Source rows',o.source_rows],['Classified records',o.classified],['Exact-text cache reuse',o.cache_reuse],['Quarantined (all reasons)',Object.values(o.coverage.quarantined_by_reason).reduce((a,b)=>a+b,0)],['Needs-review flagged',o.needs_review],['API spend (USD)','$'+Number(o.spend_usd).toFixed(2)]].map(([k,x])=>`<div class="k"><b>${typeof x==='number'?fmt(x):x}</b><span>${k}</span></div>`).join('');
+ const q=o.coverage.quarantined_by_reason;$('#scopenote').innerHTML=`Scope: the full file (${fmt(o.source_rows)} rows) is ingested and every ID accounted for. Because of an API budget cap, a deterministic hash-ordered sample was classified; the rest are quarantined as <code>not_selected_budget_scope</code> (${fmt(q.not_selected_budget_scope||0)}), ${fmt(q.empty_review_text||0)} as <code>empty_review_text</code>, ${fmt(q.model_stage_failure||0)} model failures, ${fmt(q.pending_not_attempted||0)} pending. <span class="warn">Results describe the classified sample, not all reviews.</span>`;
+ $('#memo').innerHTML='<p>'+md(rec.memo||'')+'</p>';
+ $('#rank').innerHTML='<tr><th class="n">#</th><th>issue</th><th>title</th><th class="n">complaints</th><th class="n">mean sev</th><th class="n">priority</th><th class="n">cancel intent</th></tr>'+rk.map(r=>`<tr class="click" data-id="${r.issue_id}"><td class="n">${r.rank}</td><td><code>${r.issue_id}</code></td><td>${esc(r.title||'')}</td><td class="n">${fmt(r.complaint_count)}</td><td class="n">${r.mean_severity}</td><td class="n"><b>${fmt(r.priority_score)}</b></td><td class="n">${fmt(r.cancellation_count)}</td></tr>`).join('');
+ bars($('#topics'),o.by_topic,'topic','n',Math.max(...o.by_topic.map(t=>t.n)));
+ const topics=[...new Set(tr.map(t=>t.topic))].sort();$('#topicSel').innerHTML=topics.map(t=>`<option>${t}</option>`).join('');
+ const drawTrend=()=>{const t=$('#topicSel').value,months={};tr.forEach(r=>{(months[r.month]??={n:0,c:0,tn:0,tc:0});months[r.month].n+=r.n;if(r.topic===t){months[r.month].tn+=r.n;months[r.month].tc+=r.complaints}});
+  $('#trend').innerHTML=Object.entries(months).sort().map(([m,d])=>{const p=100*d.tc/d.n;return `<div class="row"><span>${m}</span><div class="bar" style="width:${Math.max(1,p*4)}%"></div><span class="n">${p.toFixed(1)}% <span class="note">(n=${fmt(d.n)})</span></span></div>`}).join('')};
+ $('#topicSel').onchange=drawTrend;drawTrend();
+ $('#quality').innerHTML=[['Golden-50 topic agreement',g.topic_agreement],['Golden-50 intent agreement',g.intent_agreement],['Golden-50 severity exact',g.severity_exact],['Golden-50 severity MAE',g.severity_mae],['Verifier topic agreement',v.topic_agreement],['Verifier intent agreement',v.intent_agreement],['Verifier sample size',v.sample_size]].map(([k,x])=>`<div class="k"><b>${x??'–'}</b><span>${k}</span></div>`).join('');
+ $('#limits').innerHTML='<p>Historical, self-selected reviews: no revenue, plan tier or confirmed churn; cancellation language is expressed intent, not observed churn. First and last months are partial. Labels come from a small model with code validation; the golden set (50 labels, drafted from the rubric and reviewed by the student) is a small diagnostic sample. Generic "other" complaints are not actionable issues.</p>';
+})();
+</script></body></html>

@@ -1,0 +1,31 @@
+{
+  "distinct_nonempty_texts": 484189,
+  "elapsed_s": 11.62,
+  "empty_text_rows": 13,
+  "input_csv": "/Users/elizabethbuse/Desktop/Agentic AI/Final Assignment - Spotify Reviews Dataset/spotify_reviews_18months.csv",
+  "most_common_duplicate_text_counts": [
+    12845,
+    5551,
+    4096,
+    3948,
+    3359,
+    3136,
+    2769,
+    2134,
+    1973,
+    1901
+  ],
+  "nonempty_rows": 660609,
+  "pending_distinct_texts": 0,
+  "rows": 660622,
+  "rows_in_duplicate_texts": 192342,
+  "selected_distinct_texts": 181628,
+  "selected_rows": 240000,
+  "selection_rule": "lowest SHA-256('berkeley-fall-2026-assignment-5-v1:'+review_id) among nonempty rows, target=240000, plus forced ids=50",
+  "text_length_chars": {
+    "max": 1693,
+    "mean": 74.8,
+    "median": 32,
+    "p95": 305
+  }
+}

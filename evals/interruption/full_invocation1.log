@@ -1,0 +1,41 @@
+[enrich] batches 20/1562 cost $0.1131 elapsed 14s
+[enrich] batches 40/1562 cost $0.2298 elapsed 26s
+[enrich] batches 60/1562 cost $0.3450 elapsed 38s
+[enrich] batches 80/1562 cost $0.4630 elapsed 51s
+[enrich] batches 100/1562 cost $0.5812 elapsed 63s
+[enrich] batches 120/1562 cost $0.7003 elapsed 76s
+[enrich] batches 140/1562 cost $0.8217 elapsed 88s
+[enrich] batches 160/1562 cost $0.9314 elapsed 100s
+[enrich] batches 180/1562 cost $1.0488 elapsed 112s
+[enrich] batches 200/1562 cost $1.1674 elapsed 124s
+[enrich] batches 220/1562 cost $1.2826 elapsed 136s
+[enrich] batches 240/1562 cost $1.4046 elapsed 150s
+[enrich] batches 260/1562 cost $1.5185 elapsed 162s
+[enrich] batches 280/1562 cost $1.6347 elapsed 175s
+[enrich] batches 300/1562 cost $1.7531 elapsed 188s
+[enrich] batches 320/1562 cost $1.8690 elapsed 201s
+[enrich] batches 340/1562 cost $1.9889 elapsed 213s
+[enrich] batches 360/1562 cost $2.1128 elapsed 225s
+[enrich] batches 380/1562 cost $2.2300 elapsed 238s
+[enrich] batches 400/1562 cost $2.3485 elapsed 251s
+{
+ "run_id": "full",
+ "records": {
+  "completed": 40511,
+  "cache_reuse": 20261,
+  "quarantined": {
+   "not_selected_budget_scope": 560609,
+   "pending_not_attempted": 59438,
+   "model_stage_failure": 51,
+   "empty_review_text": 13
+  }
+ },
+ "stage_seconds": {
+  "prepare": 14.695,
+  "profile": 4.553,
+  "enrich": 254.701,
+  "records": 2.617,
+  "rank": 1.072
+ },
+ "total_wall_clock_s": 280.46
+}

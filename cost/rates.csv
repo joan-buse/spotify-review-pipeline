@@ -1,0 +1,10 @@
+model,item,usd_per_million_tokens,source_url,price_date,note
+claude-haiku-5-5,input,0.80,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-20,"ASSUMED from project config; verify against provider invoice/console"
+claude-haiku-5-5,output,4.00,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-20,"thinking disabled so no separate reasoning tokens"
+claude-haiku-5-5,cache_read,0.08,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-20,"0.1x input; none used (prompt below cache minimum)"
+claude-haiku-5-5,cache_write,1.00,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-20,"1.25x input; none used"
+claude-sonnet-5-5,input,2.00,https://www.anthropic.com/news/claude-sonnet-5,2026-09-29,"from COST_CALCULATOR.md (Sonnet 5 standard rate)"
+claude-sonnet-5-5,output,10.00,https://www.anthropic.com/news/claude-sonnet-5,2026-09-29,"from COST_CALCULATOR.md"
+claude-sonnet-5-5,cache_read,0.20,https://www.anthropic.com/news/claude-sonnet-5,2026-09-29,"0.1x input assumption; none used"
+claude-sonnet-5-5,cache_write,2.50,https://www.anthropic.com/news/claude-sonnet-5,2026-09-29,"1.25x input assumption; none used"
+claude-haiku-5-5,batch_multiplier,0.5,https://platform.claude.com/docs/en/build-with-claude/batch-processing,2026-10-20,"ASSUMED 50% Message Batches discount applied to input+output; unverified: compare with console usage"

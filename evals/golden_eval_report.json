@@ -1,0 +1,53 @@
+{
+  "n": 50,
+  "topic_agreement": 0.88,
+  "intent_agreement": 0.9,
+  "severity_exact": 0.9,
+  "severity_mae": 0.1,
+  "sentiment_mae": 0.162,
+  "sentiment_within_0.5": 0.9,
+  "topic_macro_f1": 0.8484,
+  "intent_macro_f1": 0.8084,
+  "quote_exact_substring": 1.0,
+  "ambiguous_cases_human_flagged": 20,
+  "topic_agreement_on_nonambiguous": 1.0,
+  "needs_review_as_prediction": {
+    "model_flagged": 8,
+    "flagged_and_human_ambiguous": 6,
+    "human_ambiguous_total": 20,
+    "disagreements_with_nr_flag": 3
+  },
+  "per_topic_counts_and_topic_accuracy": {
+    "billing": {
+      "n": 3,
+      "correct": 2
+    },
+    "catalog": {
+      "n": 7,
+      "correct": 4
+    },
+    "other": {
+      "n": 25,
+      "correct": 25
+    },
+    "playback": {
+      "n": 4,
+      "correct": 4
+    },
+    "usability": {
+      "n": 11,
+      "correct": 9
+    }
+  },
+  "topic_confusion": {
+    "billing->downloads": 1,
+    "catalog->other": 3,
+    "usability->other": 1,
+    "usability->playback": 1
+  },
+  "intent_confusion": {
+    "complaint->unclear": 1,
+    "praise->unclear": 2,
+    "unclear->request": 2
+  }
+}

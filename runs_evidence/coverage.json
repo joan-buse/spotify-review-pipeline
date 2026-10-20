@@ -1,0 +1,9 @@
+{
+  "completed_records": 240000,
+  "exact_text_cache_reuse_records": 58372,
+  "quarantined_by_reason": {
+    "empty_review_text": 13,
+    "not_selected_budget_scope": 420609
+  },
+  "source_rows": 660622
+}

@@ -1,0 +1,74 @@
+{"event": "start", "stage": "prepare", "ts": 1792509885.985729}
+{"event": "end", "stage": "prepare", "seconds": 14.695, "ts": 1792509900.680535}
+{"event": "start", "stage": "profile", "ts": 1792509900.6812139}
+{"event": "end", "stage": "profile", "seconds": 4.553, "ts": 1792509905.2345111}
+{"event": "start", "stage": "enrich", "ts": 1792509905.296437, "phase": "initial"}
+{"event": "end", "stage": "enrich", "seconds": 254.701, "ts": 1792510159.997261}
+{"event": "start", "stage": "records", "ts": 1792510162.454974}
+{"event": "end", "stage": "records", "seconds": 2.617, "ts": 1792510165.071956}
+{"event": "start", "stage": "rank", "ts": 1792510165.072178}
+{"event": "end", "stage": "rank", "seconds": 1.072, "ts": 1792510166.1446028}
+{"event": "start", "stage": "prepare", "ts": 1792510192.6866019}
+{"event": "end", "stage": "prepare", "seconds": 8.541, "ts": 1792510201.227614}
+{"event": "start", "stage": "profile", "ts": 1792510201.2280262}
+{"event": "end", "stage": "profile", "seconds": 4.418, "ts": 1792510205.646205}
+{"event": "start", "stage": "enrich", "ts": 1792510205.704011, "phase": "resume"}
+{"event": "end", "stage": "enrich", "seconds": 739.185, "ts": 1792510944.888617}
+{"event": "start", "stage": "records", "ts": 1792510947.4502451}
+{"event": "end", "stage": "records", "seconds": 3.057, "ts": 1792510950.507194}
+{"event": "start", "stage": "rank", "ts": 1792510950.507478}
+{"event": "end", "stage": "rank", "seconds": 1.254, "ts": 1792510951.761183}
+{"event": "start", "stage": "verify", "ts": 1792510952.10632}
+{"event": "end", "stage": "verify", "seconds": 12.14, "ts": 1792510964.245919}
+{"event": "start", "stage": "group", "ts": 1792510964.246536}
+{"event": "end", "stage": "group", "seconds": 67.478, "ts": 1792511031.72499}
+{"event": "start", "stage": "memo", "ts": 1792511031.7266612}
+{"event": "end", "stage": "memo", "seconds": 25.147, "ts": 1792511056.874151}
+{"event": "start", "stage": "prepare", "ts": 1792511172.6113012}
+{"event": "end", "stage": "prepare", "seconds": 8.912, "ts": 1792511181.523725}
+{"event": "start", "stage": "profile", "ts": 1792511181.5245051}
+{"event": "end", "stage": "profile", "seconds": 4.529, "ts": 1792511186.0537899}
+{"event": "start", "stage": "enrich", "ts": 1792511186.124171, "phase": "resume"}
+{"event": "end", "stage": "enrich", "seconds": 14.226, "ts": 1792511200.350301}
+{"event": "start", "stage": "records", "ts": 1792511202.6533918}
+{"event": "end", "stage": "records", "seconds": 3.722, "ts": 1792511206.375381}
+{"event": "start", "stage": "rank", "ts": 1792511206.375963}
+{"event": "end", "stage": "rank", "seconds": 1.601, "ts": 1792511207.977049}
+{"event": "start", "stage": "verify", "ts": 1792511208.807542}
+{"event": "end", "stage": "verify", "seconds": 15.711, "ts": 1792511224.518664}
+{"event": "start", "stage": "group", "ts": 1792511224.519617}
+{"event": "end", "stage": "group", "seconds": 66.351, "ts": 1792511290.87111}
+{"event": "start", "stage": "memo", "ts": 1792511290.8735209}
+{"event": "end", "stage": "memo", "seconds": 13.157, "ts": 1792511304.031004}
+{"event": "batch_submitted", "stage": "enrich", "batch_id": "msgbatch_01JJcwUEe38ZWNeZ9jdHVMDr", "requests": 600, "texts": 30000, "ts": 1792513359.447117}
+{"event": "batch_submitted", "stage": "enrich", "batch_id": "msgbatch_01KRgA3kK56b2kaHcPyYiJcm", "requests": 1474, "texts": 73681, "ts": 1792513811.529959}
+{"event": "start", "stage": "prepare", "ts": 1792514160.9202719}
+{"event": "end", "stage": "prepare", "seconds": 11.642, "ts": 1792514172.562657}
+{"event": "start", "stage": "profile", "ts": 1792514172.563102}
+{"event": "end", "stage": "profile", "seconds": 4.442, "ts": 1792514177.005085}
+{"event": "start", "stage": "enrich", "ts": 1792514177.113055, "phase": "resume"}
+{"event": "end", "stage": "enrich", "seconds": 7.285, "ts": 1792514184.398419}
+{"event": "start", "stage": "records", "ts": 1792514186.297415}
+{"event": "end", "stage": "records", "seconds": 4.097, "ts": 1792514190.394518}
+{"event": "start", "stage": "rank", "ts": 1792514190.395064}
+{"event": "end", "stage": "rank", "seconds": 2.064, "ts": 1792514192.4593978}
+{"event": "start", "stage": "verify", "ts": 1792514193.714977}
+{"event": "end", "stage": "verify", "seconds": 18.03, "ts": 1792514211.744561}
+{"event": "start", "stage": "group", "ts": 1792514211.745249}
+{"event": "end", "stage": "group", "seconds": 78.752, "ts": 1792514290.4972959}
+{"event": "start", "stage": "memo", "ts": 1792514290.499131}
+{"event": "end", "stage": "memo", "seconds": 26.067, "ts": 1792514316.566609}
+{"event": "start", "stage": "prepare", "ts": 1792515806.512119}
+{"event": "end", "stage": "prepare", "seconds": 11.716, "ts": 1792515818.2280462}
+{"event": "start", "stage": "profile", "ts": 1792515818.228781}
+{"event": "end", "stage": "profile", "seconds": 4.442, "ts": 1792515822.670312}
+{"event": "start", "stage": "enrich", "ts": 1792515822.77756, "phase": "resume"}
+{"event": "end", "stage": "enrich", "seconds": 0.276, "ts": 1792515823.0533671}
+{"event": "start", "stage": "records", "ts": 1792515825.057556}
+{"event": "end", "stage": "records", "seconds": 4.21, "ts": 1792515829.267342}
+{"event": "start", "stage": "rank", "ts": 1792515829.267808}
+{"event": "end", "stage": "rank", "seconds": 1.759, "ts": 1792515831.0268438}
+{"event": "start", "stage": "group", "ts": 1792515831.426595}
+{"event": "end", "stage": "group", "seconds": 63.564, "ts": 1792515894.990568}
+{"event": "start", "stage": "memo", "ts": 1792515894.991887}
+{"event": "end", "stage": "memo", "seconds": 28.357, "ts": 1792515923.3490481}

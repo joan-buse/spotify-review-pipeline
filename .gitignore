@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+venv/
+__pycache__/
+*.pyc
+node_modules/
+.vercel/
+data/*.csv
+data/*.sqlite*
+runs/*/state/
+.DS_Store
+runs/
+evals/system_tests_run/
+web/.env*
+web/local.db

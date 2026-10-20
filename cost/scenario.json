@@ -1,0 +1,19 @@
+{
+ "budget_usd": 20.0,
+ "output_token_cap_per_review": 40,
+ "max_workers": 4,
+ "rate_limit_cap_workers": 8,
+ "parallel_efficiency": 0.7,
+ "retry_rate": 0.02,
+ "fallback_model": "claude-sonnet-5-5",
+ "fallback_fraction": 0.0,
+ "verify_sample": 1000,
+ "group_scale": 2.5,
+ "conservative": {
+  "retry_rate": 0.1,
+  "fallback_fraction": 0.02,
+  "parallel_efficiency": 0.4,
+  "max_workers": 2
+ },
+ "sample_distinct_fraction": 0.781
+}

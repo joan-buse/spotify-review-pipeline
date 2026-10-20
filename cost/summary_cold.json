@@ -1,0 +1,85 @@
+{
+  "budget_usd": 0.5,
+  "enrich_stats": {
+    "batches_dispatched": 2,
+    "completed_texts": 100,
+    "cost_usd": 0.0114568,
+    "failed_requests": 0,
+    "input_tokens": 6576,
+    "invalid_items": 0,
+    "output_tokens": 1549,
+    "phase": "initial",
+    "quarantined_texts": 0,
+    "requests": 2,
+    "retries_api": 0,
+    "wall_clock_s": 7.27
+  },
+  "ingestion_report": {
+    "distinct_nonempty_texts": 100,
+    "elapsed_s": 0.01,
+    "empty_text_rows": 0,
+    "input_csv": "/Users/elizabethbuse/Desktop/Agentic AI/spotify-pipeline/assignment/cost_100.csv",
+    "most_common_duplicate_text_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "nonempty_rows": 100,
+    "pending_distinct_texts": 100,
+    "rows": 100,
+    "rows_in_duplicate_texts": 0,
+    "selected_distinct_texts": 100,
+    "selected_rows": 100,
+    "selection_rule": "lowest SHA-256('berkeley-fall-2026-assignment-5-v1:'+review_id) among nonempty rows, target=all, plus forced ids=0",
+    "text_length_chars": {
+      "max": 486,
+      "mean": 80.4,
+      "median": 44.5,
+      "p95": 306
+    }
+  },
+  "input": "/Users/elizabethbuse/Desktop/Agentic AI/spotify-pipeline/assignment/cost_100.csv",
+  "label_config": "claude-haiku-5-5+think-off+enrich-p1+schema-v1",
+  "records": {
+    "cache_reuse": 0,
+    "completed": 100,
+    "quarantined": {}
+  },
+  "run_id": "pilot_cold",
+  "stage_seconds": {
+    "enrich": 7.269,
+    "group": 23.501,
+    "memo": 21.735,
+    "prepare": 0.006,
+    "profile": 0.001,
+    "rank": 0.012,
+    "records": 0.011,
+    "verify": 1.827
+  },
+  "total_wall_clock_s": 54.43,
+  "verify": {
+    "cost_usd": 0.00197,
+    "declared_sample_rule": "lowest SHA-256('verify:'+review_id) among completed original records",
+    "disagreements_flagged": 3,
+    "intent_agreement": 0.9,
+    "planted_error_test": {
+      "cases": 20,
+      "flagged": 20,
+      "synthetic": true
+    },
+    "sample_size": 20,
+    "severity_exact_agreement": 0.9,
+    "severity_mean_abs_diff": 0.1,
+    "topic_agreement": 0.95,
+    "verifier_failed": 0,
+    "verifier_model": "claude-haiku-5-5"
+  },
+  "workers": 1
+}

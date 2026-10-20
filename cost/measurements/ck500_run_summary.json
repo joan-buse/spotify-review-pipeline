@@ -1,0 +1,65 @@
+{
+  "budget_usd": 0.5,
+  "enrich_stats": {
+    "batches_dispatched": 10,
+    "completed_texts": 479,
+    "cost_usd": 0.05651360000000001,
+    "failed_requests": 0,
+    "input_tokens": 33347,
+    "invalid_items": 2,
+    "output_tokens": 7459,
+    "phase": "initial",
+    "quarantined_texts": 0,
+    "requests": 11,
+    "retries_api": 0,
+    "wall_clock_s": 18.84
+  },
+  "ingestion_report": {
+    "distinct_nonempty_texts": 479,
+    "elapsed_s": 0.01,
+    "empty_text_rows": 0,
+    "input_csv": "assignment/checkpoint_500.csv",
+    "most_common_duplicate_text_counts": [
+      7,
+      4,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "nonempty_rows": 500,
+    "pending_distinct_texts": 479,
+    "rows": 500,
+    "rows_in_duplicate_texts": 32,
+    "selected_distinct_texts": 479,
+    "selected_rows": 500,
+    "selection_rule": "lowest SHA-256('berkeley-fall-2026-assignment-5-v1:'+review_id) among nonempty rows, target=all, plus forced ids=0",
+    "text_length_chars": {
+      "max": 499,
+      "mean": 78.5,
+      "median": 36.0,
+      "p95": 306
+    }
+  },
+  "input": "assignment/checkpoint_500.csv",
+  "label_config": "claude-haiku-5-5+think-off+enrich-p1+schema-v1",
+  "records": {
+    "cache_reuse": 21,
+    "completed": 500,
+    "quarantined": {}
+  },
+  "run_id": "ck500",
+  "stage_seconds": {
+    "enrich": 18.837,
+    "prepare": 0.011,
+    "profile": 0.003,
+    "rank": 0.006,
+    "records": 0.014
+  },
+  "total_wall_clock_s": 18.92,
+  "workers": 2
+}

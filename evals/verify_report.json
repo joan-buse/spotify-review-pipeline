@@ -1,0 +1,17 @@
+{
+  "cost_usd": 0.07738,
+  "declared_sample_rule": "lowest SHA-256('verify:'+review_id) among completed original records",
+  "disagreements_flagged": 240,
+  "intent_agreement": 0.892,
+  "planted_error_test": {
+    "cases": 25,
+    "flagged": 25,
+    "synthetic": true
+  },
+  "sample_size": 1000,
+  "severity_exact_agreement": 0.874,
+  "severity_mean_abs_diff": 0.131,
+  "topic_agreement": 0.847,
+  "verifier_failed": 0,
+  "verifier_model": "claude-haiku-5-5"
+}

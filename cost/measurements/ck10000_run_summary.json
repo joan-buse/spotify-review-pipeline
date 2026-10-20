@@ -1,0 +1,67 @@
+{
+  "budget_usd": 3.0,
+  "enrich_stats": {
+    "batches_dispatched": 169,
+    "completed_texts": 8447,
+    "cost_usd": 0.9853392000000001,
+    "failed_requests": 0,
+    "input_tokens": 576214,
+    "invalid_items": 18,
+    "output_tokens": 131092,
+    "phase": "initial",
+    "quarantined_texts": 1,
+    "requests": 182,
+    "retries_api": 0,
+    "wall_clock_s": 167.03
+  },
+  "ingestion_report": {
+    "distinct_nonempty_texts": 8448,
+    "elapsed_s": 0.14,
+    "empty_text_rows": 0,
+    "input_csv": "assignment/analysis_10000.csv",
+    "most_common_duplicate_text_counts": [
+      214,
+      79,
+      60,
+      53,
+      48,
+      48,
+      37,
+      34,
+      31,
+      30
+    ],
+    "nonempty_rows": 10000,
+    "pending_distinct_texts": 8448,
+    "rows": 10000,
+    "rows_in_duplicate_texts": 1839,
+    "selected_distinct_texts": 8448,
+    "selected_rows": 10000,
+    "selection_rule": "lowest SHA-256('berkeley-fall-2026-assignment-5-v1:'+review_id) among nonempty rows, target=all, plus forced ids=0",
+    "text_length_chars": {
+      "max": 615,
+      "mean": 75.2,
+      "median": 32.0,
+      "p95": 301
+    }
+  },
+  "input": "assignment/analysis_10000.csv",
+  "label_config": "claude-haiku-5-5+think-off+enrich-p1+schema-v1",
+  "records": {
+    "cache_reuse": 1552,
+    "completed": 9999,
+    "quarantined": {
+      "model_stage_failure": 1
+    }
+  },
+  "run_id": "ck10000",
+  "stage_seconds": {
+    "enrich": 167.039,
+    "prepare": 0.141,
+    "profile": 0.067,
+    "rank": 0.042,
+    "records": 0.113
+  },
+  "total_wall_clock_s": 167.45,
+  "workers": 4
+}
