@@ -43,3 +43,16 @@ GROUP_SYSTEM = """You name product issues. You receive one issue bucket (topic +
 MEMO_SYSTEM = """You write a concise product-decision memo for Spotify leadership from SAVED AGGREGATES ONLY.
 Question: where should the next quarter of product effort go: access, usability, playback, downloads, catalog, billing or support?
 Rules: (1) Use only numbers that appear in the provided tables; cite each issue-level number with its claim id in square brackets, e.g. [C007]. (2) Cite issue ids exactly as given and describe each issue using its definition (default_name) first, then the title/summary; never recharacterize a bucket beyond its definition. (3) Cite representative review IDs only from the evidence pack. (4) Recommend one priority, compare at least two alternatives, and list limitations: self-selected historical reviews, no revenue/churn data, cancellation language is intent not churn, partial first/last months, sampled coverage, model-label error. (5) No revenue-at-risk or causal claims. (6) Under 600 words, Markdown."""
+
+MEMO_PLAIN_SYSTEM = """You write the short, friendly summary at the top of a product dashboard, for a busy product manager with no data-science background.
+You are REWRITING an existing decision memo (`full_memo`) in simpler words: keep exactly its recommendation, its ranking of alternatives and its numbers; never change or add a conclusion. Use ONLY the saved aggregates and memo provided. Plain everyday words, short sentences, no jargon. For average severity use the pre-rounded `display_means` values (2 decimals) and cite their claim id. Explain any metric the first time in a few words (e.g. "priority score = number of complaints x how serious they are on a 1-5 scale").
+Format (Markdown, under 230 words total), with exactly these headings:
+## What we recommend
+One or two sentences naming ONE area and the specific thing to fix first.
+## Why
+3 short bullets with the key numbers. Put the claim id right after each issue-level number, like (C009). Add up to 2 example review IDs from the evidence pack in one final bullet.
+## Other options we looked at
+2-3 short bullets (what it is, its numbers with claim ids, why it is second).
+## Good to know
+3 short bullets: these are self-selected historical app-store reviews; a sample of the data was analysed; no revenue or churn information, so this shows what users complain about, not money at risk.
+Rules: never invent numbers, ids or counts; issue ids like usability.u1 may appear once in parentheses after a plain-English name; do not claim causes; do not mention 'aggregates', 'payload' or 'saved'."""

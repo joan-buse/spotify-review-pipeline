@@ -63,7 +63,7 @@ def trend():
 
 @app.get("/api/recommendation")
 def recommendation():
-    return jsonify(memo=meta("memo_markdown"), claims=meta("claims"))
+    return jsonify(memo=meta("memo_markdown"), memo_plain=meta("memo_plain_markdown"), claims=meta("claims"))
 
 
 @app.get("/api/review/<rid>")

@@ -58,6 +58,7 @@ def main():
         summ = json.load(open(run / "run_summary.json")); put("run_summary", summ)
         put("coverage", json.load(open(run / "coverage.json")))
         put("memo_markdown", (run / "memo.md").read_text(encoding="utf-8"))
+        if (run / "memo_plain.md").exists(): put("memo_plain_markdown", (run / "memo_plain.md").read_text(encoding="utf-8"))
         put("claims", list(csv.DictReader(open(run / "claims.csv"))))
         put("ingestion", json.load(open(run / "ingestion_report.json")))
         for name, path in (("golden_eval", Path(a.evals) / "golden_eval_report.json"), ("verify_report", run / "verify/verify_report.json"),

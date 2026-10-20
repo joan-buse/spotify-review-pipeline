@@ -1,7 +1,7 @@
 # Spotify review insights: a staged, multi-agent pipeline
 
 **Question:** where should Spotify put the next quarter of product effort: access, usability, playback, downloads, catalog, billing or support?
-**Answer (from the saved evidence):** **usability, led by the free-tier experience** (ads `usability.u1`, forced shuffle/restricted controls `usability.u2`, library/playlist loading `usability.u3`). Full memo: [`memo.md`](memo.md) · every issue-level number is in [`grading/claims.csv`](grading/claims.csv).
+**Answer (from the saved evidence):** **usability, led by the free-tier experience** (ads `usability.u1`, forced shuffle/restricted controls `usability.u2`, library/playlist loading `usability.u3`). Full memo: [`memo.md`](memo.md) · plain-language version shown on the dashboard: [`memo_plain.md`](memo_plain.md) (a simplification of the same memo, same recommendation and numbers, model role `memo`, same code checks) · every issue-level number is in [`grading/claims.csv`](grading/claims.csv).
 
 | | |
 |---|---|
