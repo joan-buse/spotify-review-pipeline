@@ -2,8 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Spotify Review Insights</title>
 <style>
-:root{--bg:#f7f7f5;--card:#fff;--ink:#16181a;--mut:#667;--line:#e3e3df;--acc:#1a7f4b;--acc2:#2b5fd9;--soft:#f1f5ff}
-@media (prefers-color-scheme:dark){:root{--bg:#101214;--card:#181b1e;--ink:#eceeef;--mut:#9aa1a8;--line:#2a2e32;--acc:#4cc38a;--acc2:#7aa2ff;--soft:#1b2433}}
+:root{--bg:#f7f7f5;--card:#fff;--ink:#16181a;--mut:#667;--line:#e3e3df;--soft:#f0f0ec;--bar:#d9d9d4;
+--t-usability:#0072B2;--t-billing:#E69F00;--t-playback:#D55E00;--t-catalog:#56B4E9;--t-access:#009E73;--t-downloads:#F0E442;--t-support:#CC79A7;--t-other:#999999}
+@media (prefers-color-scheme:dark){:root{--bg:#101214;--card:#181b1e;--ink:#eceeef;--mut:#9aa1a8;--line:#2a2e32;--soft:#202428;--bar:#3a3f44}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 header{padding:20px 16px 4px;max-width:1100px;margin:auto}h1{margin:0;font-size:22px}header p{margin:4px 0 0;color:var(--mut);font-size:13px}
 main{max-width:1100px;margin:auto;padding:12px 16px 60px;display:grid;gap:14px}
@@ -12,12 +13,15 @@ h2{font-size:16px;margin:0 0 10px}.grid{display:grid;grid-template-columns:repea
 .k{border:1px solid var(--line);border-radius:8px;padding:10px}.k b{display:block;font-size:20px}.k span{color:var(--mut);font-size:12px}
 table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
 th{color:var(--mut);font-weight:600}tr.click{cursor:pointer}tr.click:hover{background:rgba(120,120,120,.08)}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
-.reco{background:var(--soft);border-radius:8px;padding:4px 16px 8px}.reco h3{font-size:14px;margin:14px 0 4px;color:var(--acc2);text-transform:uppercase;letter-spacing:.04em}
+.reco{background:var(--soft);border-radius:8px;padding:4px 16px 8px}.reco h3{font-size:12px;margin:14px 0 4px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
 .reco p,.reco li{font-size:15px;margin:4px 0}.reco ul{padding-left:20px;margin:4px 0}.reco p:first-of-type{font-size:17px;font-weight:600}
-.cite{color:var(--acc2);cursor:pointer;font-size:12px;text-decoration:underline dotted;white-space:nowrap}
+.cite{color:inherit;cursor:pointer;font-size:12px;text-decoration:underline dotted;white-space:nowrap}
 .note{font-size:12px;color:var(--mut)}code{background:rgba(120,120,120,.15);padding:0 4px;border-radius:3px;font-size:12px}
-.scroll{overflow-x:auto}details summary{cursor:pointer;color:var(--acc2);font-size:13px;margin-top:10px}.full{font-size:13px}.full h1,.full h2,.full h3{font-size:14px;margin:12px 0 4px}
+.scroll{overflow-x:auto}details summary{cursor:pointer;font-size:13px;margin-top:10px;text-decoration:underline dotted}.full{font-size:13px}.full h1,.full h2,.full h3{font-size:14px;margin:12px 0 4px}
 .q{color:var(--mut);font-size:13px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+.pbar{height:8px;background:var(--bar);border-radius:4px;margin-bottom:3px}.pbar i{display:block;height:100%;border-radius:4px}
+.tag{font-size:11px;border:1px solid var(--line);border-radius:9px;padding:0 7px;color:var(--mut);white-space:nowrap}
 /* charts */
 .chart{display:flex;align-items:flex-end;gap:6px;height:230px;padding:0 0 0 34px;position:relative;border-bottom:1px solid var(--line)}
 .chart .grid-line{position:absolute;left:34px;right:0;border-top:1px dashed var(--line)}.chart .grid-line span{position:absolute;left:-34px;top:-8px;width:28px;text-align:right;font-size:10px;color:var(--mut)}
@@ -33,7 +37,10 @@ th{color:var(--mut);font-weight:600}tr.click{cursor:pointer}tr.click:hover{backg
 <section class="card"><h2>Our recommendation</h2><div class="reco" id="reco">Loading…</div>
  <p class="note">Numbers like <span class="cite">C009</span> are references: click one to see the saved calculation behind it. Click a review ID to read the review.</p>
  <details><summary>Read the full decision memo</summary><div class="full" id="memo"></div></details></section>
-<section class="card"><h2>Issue ranking <span class="note">priority = complaints × average seriousness (1–5); ties broken by issue ID. Click a row to see real reviews.</span></h2><div class="scroll"><table id="rank"></table></div></section>
+<section class="card"><h2>Which problems should we fix first?</h2>
+ <p class="note" style="font-size:13px;margin:0 0 10px">Each row is a group of similar complaints. <b>Priority score = number of complaints × how serious they are on average (1 = minor, 5 = severe).</b> A longer bar means a bigger problem. Example: 14,770 complaints × 2.13 average seriousness ≈ 31,401. Click a row to read real reviews.</p>
+ <div class="legend" id="rlegend" style="margin:0 0 8px"></div>
+ <div class="scroll"><table id="rank"></table></div><p style="margin:10px 0 0"><span class="cite" id="showall"></span></p></section>
 <section class="card" id="evidence" hidden><h2 id="evtitle"></h2><p id="evsum" class="note"></p><div class="scroll"><table id="evtable"></table></div></section>
 <section class="card"><h2>Topic mix <span class="note">classified reviews per topic</span></h2><div class="chart" id="topics"></div><div class="xl" id="topicsx"></div></section>
 <section class="card"><h2>Complaint share over time <span class="note">% of each month's classified reviews that are complaints, split by topic</span></h2><div class="chart" id="trend"></div><div class="xl" id="trendx"></div><div class="legend" id="legend"></div>
@@ -42,7 +49,8 @@ th{color:var(--mut);font-weight:600}tr.click{cursor:pointer}tr.click:hover{backg
 <script>
 const $=s=>document.querySelector(s),fmt=n=>Number(n).toLocaleString(),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const get=u=>fetch(u).then(r=>r.json());let CLAIMS={};
-const COLORS={usability:'#4e79a7',billing:'#f28e2b',playback:'#e15759',catalog:'#76b7b2',access:'#59a14f',downloads:'#edc948',support:'#b07aa1',other:'#9c9c9c'};
+const TOPICS=['usability','billing','playback','catalog','access','downloads','support','other'];
+const COLORS=Object.fromEntries(TOPICS.map(t=>[t,getComputedStyle(document.documentElement).getPropertyValue('--t-'+t).trim()]));
 const col=t=>COLORS[t]||'#888';
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',6000)}
 function md(t){return esc(t).replace(/^### (.*)$/gm,'<h3>$1</h3>').replace(/^## (.*)$/gm,'<h3>$1</h3>').replace(/^# (.*)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>')
@@ -64,7 +72,12 @@ document.addEventListener('click',async e=>{const t=e.target;if(t.dataset.i)open
  $('#kpis').innerHTML=[['Source rows',o.source_rows],['Classified reviews',o.classified],['Reused identical-text results',o.cache_reuse],['Not classified (all reasons)',Object.values(o.coverage.quarantined_by_reason).reduce((a,b)=>a+b,0)],['Flagged for human review',o.needs_review],['API spend (USD)','$'+Number(o.spend_usd).toFixed(2)]].map(([k,x])=>`<div class="k"><b>${typeof x==='number'?fmt(x):x}</b><span>${k}</span></div>`).join('');
  $('#reco').innerHTML='<p>'+md(rec.memo_plain||rec.memo||'')+'</p>';
  $('#memo').innerHTML='<p>'+md(rec.memo||'')+'</p>';
- $('#rank').innerHTML='<tr><th class="n">#</th><th>issue</th><th>what users report</th><th class="n">complaints</th><th class="n">avg seriousness</th><th class="n">priority</th><th class="n">mention leaving</th></tr>'+rk.map(r=>`<tr class="click" data-id="${r.issue_id}"><td class="n">${r.rank}</td><td><code>${r.issue_id}</code></td><td>${esc(r.title||'')}</td><td class="n">${fmt(r.complaint_count)}</td><td class="n">${r.mean_severity}</td><td class="n"><b>${fmt(r.priority_score)}</b></td><td class="n">${fmt(r.cancellation_count)}</td></tr>`).join('');
+ const maxP=Math.max(...rk.map(r=>r.priority_score));
+ const generic=id=>id==='other.o1'||id==='other.o3';
+ const row=r=>`<tr class="click" data-id="${r.issue_id}" title="Click to read real reviews"><td class="n">${r.rank}</td><td><span class="dot" style="background:${col(r.topic)}"></span><b>${esc(r.title||r.issue_id)}</b>${generic(r.issue_id)?' <span class="tag">no specific problem named</span>':''}<div class="note">${r.topic} · <code>${r.issue_id}</code></div></td><td class="n">${fmt(r.complaint_count)}</td><td class="n">${Number(r.mean_severity).toFixed(2)} / 5</td><td style="min-width:150px"><div class="pbar"><i style="width:${100*r.priority_score/maxP}%;background:${col(r.topic)}"></i></div><b>${fmt(r.priority_score)}</b></td><td class="n">${fmt(r.cancellation_count)}</td></tr>`;
+ let showAll=false;const drawRank=()=>{$('#rank').innerHTML='<tr><th class="n">Rank</th><th>Problem (group of similar complaints)</th><th class="n">Complaints</th><th class="n">Avg seriousness</th><th>Priority score</th><th class="n">Mentioned leaving</th></tr>'+(showAll?rk:rk.slice(0,10)).map(row).join('');$('#showall').textContent=showAll?'Show top 10 only':`Show all ${rk.length} problems`};
+ $('#showall').onclick=()=>{showAll=!showAll;drawRank()};drawRank();
+ $('#rlegend').innerHTML=TOPICS.map(t=>`<span><i style="background:${col(t)}"></i>${t}</span>`).join('');
  vbars($('#topics'),$('#topicsx'),o.by_topic,'topic','n');
  // stacked monthly complaint share by topic
  const months={},topics=[...new Set(tr.map(t=>t.topic))];
