@@ -18,6 +18,15 @@ Rates file: `cost/rates.csv` (editable). Rate multiplier: x1.0. Usage file: `cos
 Wall-clock (not summed call time): cold 54.4s, warm 0.1s. Stage seconds cold: {'enrich': 7.269, 'group': 23.501, 'memo': 21.735, 'prepare': 0.006, 'profile': 0.001, 'rank': 0.012, 'records': 0.011, 'verify': 1.827}; warm: {'enrich': 0.0, 'prepare': 0.003, 'profile': 0.001, 'rank': 0.001, 'records': 0.001}.
 Enrichment throughput (1 worker): 13.76 texts/s.
 
+### Configuration by stage (pilot)
+
+| stage | provider | model | effort/thinking | prompt/schema version | batch size | workers | unique texts | result-cache hits (cold / warm) |
+|---|---|---|---|---|---|---|---|---|
+| enrich | Anthropic | claude-haiku-5-5 | thinking disabled | enrich-p1 / schema-v1 | <=50 reviews/request (2 requests) | 1 | 100 | 0 / 100 |
+| verify | Anthropic | claude-haiku-5-5 | thinking disabled | verify-p1 | <=50 (1 request, 20-review declared sample) | 1 | - | n/a (downstream cached by input fingerprint: 0 calls warm) |
+| group | Anthropic | claude-haiku-5-5 | thinking disabled | group-p1 | 1 issue bucket per request | 1 | - | n/a (downstream cached by input fingerprint: 0 calls warm) |
+| memo | Anthropic | claude-sonnet-5-5 | no thinking between tools (provider default for this model) | memo-p1 | 1 request (+1 regeneration if checks fail) | 1 | - | n/a (downstream cached by input fingerprint: 0 calls warm) |
+
 Local compute / electricity / hardware: **unknown, not measured** (orchestration is CPU-light; not included in API spend).
 
 ## Projection: full corpus

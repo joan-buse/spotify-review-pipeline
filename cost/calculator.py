@@ -103,6 +103,15 @@ def replay(a):
     P(f"\n**Warm run (saved result cache): {warm_enrich} enrichment calls; incremental API cost ${warm_total:.6f}** (downstream stages cached by input fingerprint).")
     P(f"\nWall-clock (not summed call time): cold {m['cold_wall_s']:.1f}s, warm {m['warm_wall_s']:.1f}s. Stage seconds cold: {m['cold_stage_s']}; warm: {m['warm_stage_s']}.")
     P(f"Enrichment throughput (1 worker): {m['throughput_texts_per_s_1worker']:.2f} texts/s.")
+    P("\n### Configuration by stage (pilot)\n")
+    P("| stage | provider | model | effort/thinking | prompt/schema version | batch size | workers | unique texts | result-cache hits (cold / warm) |"); P("|---|---|---|---|---|---|---|---|---|")
+    cfg = {"enrich": ("claude-haiku-5-5", "thinking disabled", "enrich-p1 / schema-v1", "<=50 reviews/request (2 requests)", "1"),
+           "verify": ("claude-haiku-5-5", "thinking disabled", "verify-p1", "<=50 (1 request, 20-review declared sample)", "1"),
+           "group": ("claude-haiku-5-5", "thinking disabled", "group-p1", "1 issue bucket per request", "1"),
+           "memo": ("claude-sonnet-5-5", "no thinking between tools (provider default for this model)", "memo-p1", "1 request (+1 regeneration if checks fail)", "1")}
+    for k, (mod, eff, ver, bs, w) in cfg.items():
+        hits = f"0 / {n}" if k == "enrich" else "n/a (downstream cached by input fingerprint: 0 calls warm)"
+        P(f"| {k} | Anthropic | {mod} | {eff} | {ver} | {bs} | {w} | {n if k == 'enrich' else '-'} | {hits} |")
     P("\nLocal compute / electricity / hardware: **unknown, not measured** (orchestration is CPU-light; not included in API spend).")
     P("\n## Projection: full corpus\n")
     P(f"Source rows {FULL['source_rows']:,} = {FULL['nonempty']:,} nonempty to classify + {FULL['empty_quarantine']} empty quarantines. Distinct nonempty texts with exact-text reuse: {FULL['distinct_nonempty_texts']:,}.")

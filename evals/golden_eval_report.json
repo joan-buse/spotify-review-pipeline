@@ -1,4 +1,9 @@
 {
+  "entity_support": {
+    "entities_emitted": 24,
+    "not_found_in_source_text": 0,
+    "note": "entities come from a deterministic keyword matcher over the source text, so unsupported additions are impossible by construction; the check verifies it. Entities are NOT scored against human lists (human entity lists are indicative only)."
+  },
   "n": 50,
   "topic_agreement": 0.88,
   "intent_agreement": 0.9,

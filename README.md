@@ -83,6 +83,9 @@ flowchart TD
 ### Cost levers used
 Exact-text result cache (58k records free) · ≤50 reviews/request · compact ~15-token output · thinking disabled (~10× output saving) · deterministic quotes/entities in code · shared spend ledger + reservations · parallel workers (1→6, rate limiter) · Message Batches API for the extension (documented 50% discount) · saved-state resume. Not used: provider prompt caching (system prompt ~1.7k tokens, below the cache minimum; untested).
 
+### Baseline ranking (rules, tie-break, scope)
+`priority(issue) = complaint_count × mean_severity = severity_sum`, computed over **completed `complaint` and `cancellation` records only** (praise/request/unclear excluded), one issue per review (`allow_multi_issue:false`), each review counted once. Issues are `topic.subtopic` buckets assigned by code from the enrichment output; a small model only *names* them (§3). Sort: descending score, then ascending `issue_id`; ranks start at 1; means are exported to six decimals with half-up rounding. Scope: the 240,000 classified records. Saved inputs (`grading/records.jsonl.gz`) regenerate the identical ranking and membership with no model call (§4). Topic-level totals quoted in the memo (not issue-level) are in [`runs_evidence/topic_totals.csv`](runs_evidence/topic_totals.csv); issue-level numbers are claim IDs in `grading/claims.csv`. Prose-to-calculation check: the memo generator rejects unknown claim/issue/review IDs and numbers absent from the saved aggregates, and the checker recomputes every claim (0 mismatches). Unresolved classifications: **none failed**; 420,609 rows were deliberately not classified (scope), 13 empty texts quarantined ([`quarantine.jsonl`](quarantine.jsonl)).
+
 ## 4. Run it
 
 ```bash
@@ -147,11 +150,11 @@ My first 100k-row run was made on a copy of the CSV that had been re-saved by a 
 ## 8. Repository map
 ```
 pipeline/   prepare · enrich (sync) · batch_enrich (queue) · verify · group · rank · memo · records · remap · run (orchestrator) · prompts (versioned)
-cost/       calculator.py + measured pilot (usage.csv, pilot_calls.jsonl, pilot_records.jsonl, rates.csv, scenario.json, report.md, measurements/)
+cost/       README.md (offline vs paid commands) · calculator.py + measured pilot (usage.csv, pilot_calls.jsonl, pilot_records.jsonl, rates.csv, scenario.json, report.md, measurements/)
 evals/      golden labels + eval, verifier results, planted-error, system tests, interruption evidence
 grading/    instructor-format export (run.json, ingestion.json, records.jsonl.gz, membership.csv, ranking.csv, claims.csv, calls.jsonl.gz, checkpoints)
 web/        Flask API (app.py), dashboard (public/index.html), DB loader (scripts/load_db.py)
-docs/       label definitions and examples
+docs/       label definitions + examples (labels.md), shared output schema (schema.md); prompts: pipeline/prompts.py
 assignment/ supplied contract, calculator spec, checker and sample CSVs (checker + samples unchanged)
 runs_evidence/  run_summary, coverage, ingestion_report, issues.json, aggregates, verify outputs for the final run
 ```

@@ -38,7 +38,10 @@ def macro_f1(key_h, key_p):
         fn = sum(1 for r in rows if r[key_h] == L and r.get(key_p) != L)
         fs.append(0 if tp == 0 else 2 * tp / (2 * tp + fp + fn))
     return round(sum(fs) / len(fs), 4)
-rep = {"n": n, "topic_agreement": f(sum(r["topic_ok"] for r in rows)), "intent_agreement": f(sum(r["intent_ok"] for r in rows)),
+ent_total = sum(len(r.get("pred_entities", [])) for r in rows)
+gold_text = {rid: g["review_text"].lower() for rid, g in gold.items()}
+ent_unsupported = [(r["review_id"], e) for r in rows for e in r.get("pred_entities", []) if e.lower() not in gold_text[r["review_id"]]]
+rep = {"entity_support": {"entities_emitted": ent_total, "not_found_in_source_text": len(ent_unsupported), "note": "entities come from a deterministic keyword matcher over the source text, so unsupported additions are impossible by construction; the check verifies it. Entities are NOT scored against human lists (human entity lists are indicative only)."}, "n": n, "topic_agreement": f(sum(r["topic_ok"] for r in rows)), "intent_agreement": f(sum(r["intent_ok"] for r in rows)),
        "severity_exact": f(sum(r["sev_exact"] for r in rows)), "severity_mae": round(sum(r["sev_err"] for r in rows) / n, 3),
        "sentiment_mae": round(sum(r["sent_err"] for r in rows) / n, 3), "sentiment_within_0.5": f(sum(r["sent_ok"] for r in rows)),
        "topic_macro_f1": macro_f1("human_topic", "pred_topic"), "intent_macro_f1": macro_f1("human_intent", "pred_intent"),
