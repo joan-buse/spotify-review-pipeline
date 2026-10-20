@@ -18,10 +18,11 @@ MAX_BATCH = 50
 MAX_TEXT_CHARS = 600  # text shown to the model; quotes are still chosen from the FULL source text in code
 
 # Editable, dated rates (USD per million tokens). See cost/rates.csv for the source/date record.
-RATES = {
-    "claude-haiku-5-5": {"input": 0.80, "output": 4.00, "cache_read": 0.08, "cache_write": 1.00},
-    "claude-sonnet-5-5": {"input": 2.00, "output": 10.00, "cache_read": 0.20, "cache_write": 2.50},
+RATES = {  # USD per million tokens; official list prices checked 2026-10-20 (platform.claude.com/docs/en/about-claude/pricing)
+    "claude-haiku-5-5": {"input": 0.10, "output": 0.50, "cache_read": 0.01, "cache_write": 0.125},   # prompts <= 100k tokens
+    "claude-sonnet-5-5": {"input": 2.00, "output": 10.00, "cache_read": 0.10, "cache_write": 2.50},
 }
+BATCH_MULTIPLIER = 0.5  # Message Batches API: 50% off input and output (same page)
 
 SUBTOPICS = {
     "access": {"a1": "cannot log in / login loop", "a2": "password or reset problems", "a3": "account banned, locked or lost", "a4": "signup or linked-account (Facebook/Google) problems"},

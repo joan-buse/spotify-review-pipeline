@@ -21,12 +21,12 @@
 | Golden-50 (human labels) | topic 88%, intent 90%, severity exact 90% (MAE 0.10), sentiment MAE 0.16 (90% within ±0.5), quotes 100% exact substrings | [`evals/golden_eval_report.json`](evals/golden_eval_report.json) |
 | Independent verifier (1,000 sampled) | topic 83.0%, intent 88.3%, severity exact 84.7% (MAE 0.157); 266 disagreements saved | [`evals/full_run/`](evals/full_run) |
 | Planted-error test (synthetic) | 25 / 25 deliberately wrong labels flagged | `evals/full_run/planted_error_test.jsonl` |
-| API spend (measured, local ledger) | final run `calls.jsonl` **$15.91** (sync $9.31 + Message Batches $6.06 + verify/group/memo $0.54) + development/pilots ≈ $1.2 ⇒ **≈ $17.1 total**. Rates are *assumed* (see Limitations); not yet reconciled with the provider console | [`cost/`](cost) |
+| API spend | final run `calls.jsonl` **$2.17** at official list prices (sync enrichment $1.16 + Message Batches $0.76 + verify/group/memo $0.24); with the pilots, checkpoints, demos and tests the total is **≈ $2.8**, matching the Anthropic Console (**$2.80** spent; 14.70M input / 3.61M output tokens, which matches my logged token counts). Rates: Haiku 5.5 $0.10/$0.50 per M tokens, Batch −50% (official pricing page, checked 2026-10-20) | [`cost/`](cost) |
 | Wall-clock | first 100k-row run, 6 sync workers: 4.2 min before the interruption + 12.3 min after resume (78k texts total); Message Batches: 103k texts finished within minutes of queueing (two batches) | `runs_evidence/run_summary.json` |
 | Self-check | `check_submission.py`: ingestion matches official file, 0 duplicate/missing IDs, 0 invalid records/cache reuse, ranking/claims match; only flag = `unfinished_classification` (420,609 not attempted). Reported coverage candidate **0.618** under the strict full-corpus denominator | [`self-check.json`](self-check.json) |
 
 ### Scope, stated plainly
-The brief accepts ≥100,000 classified reviews. Classifying all 660,609 would have cost about $57 (sync) or roughly $25 (Batch API, assuming its discount) at the rates I measured; I stopped at **240,000 (36%)** because of a self-funded budget. The classified set is the first 240,000 rows in order of `SHA-256(seed + ':' + review_id)` (the course's own sampling rule) plus the golden 50, so it is an unbiased random sample of the corpus, **not** the whole corpus. Counts and rankings below therefore describe the sample; `not_selected_budget_scope` records are not completed classifications and lower the coverage score.
+The brief accepts ≥100,000 classified reviews. I classified **240,000 (36%)**: the first 240,000 rows in order of `SHA-256(seed + ':' + review_id)` (the course's own sampling rule) plus the golden 50, so it is an unbiased random sample of the corpus, **not** the whole corpus. Finishing the other ~302k distinct texts would cost roughly $2–3 more at list prices with the Batch API (measured token usage × official rates) and about an hour of work; I chose not to, because the brief accepts ≥100,000. Counts and rankings below therefore describe the sample; `not_selected_budget_scope` records (a historical label: *outside the chosen scope*) are not completed classifications, lower the strict coverage score (0.618) and are reported as such.
 
 ## 2. Rubric → evidence map
 
@@ -81,7 +81,7 @@ flowchart TD
 **Why each model call exists:** classification of free text into fixed labels, an independent re-label for quality assurance, naming of already-formed buckets, and prose for the memo. **What code does instead:** CSV parsing, hashing, dedupe, quote extraction, entity matching, validation, retries, budgets, aggregation and all arithmetic. Models: `claude-haiku-5-5` (enrich/verify/group, thinking disabled), `claude-sonnet-5-5` (memo only, 1–2 calls). No stronger-model fallback is used (fallback fraction = 0).
 
 ### Cost levers used
-Exact-text result cache (58k records free) · ≤50 reviews/request · compact ~15-token output · thinking disabled (~10× output saving) · deterministic quotes/entities in code · shared spend ledger + reservations · parallel workers (1→6, rate limiter) · Message Batches API for the extension (assumed 50% discount) · saved-state resume. Not used: provider prompt caching (system prompt ~1.7k tokens, below the cache minimum; untested).
+Exact-text result cache (58k records free) · ≤50 reviews/request · compact ~15-token output · thinking disabled (~10× output saving) · deterministic quotes/entities in code · shared spend ledger + reservations · parallel workers (1→6, rate limiter) · Message Batches API for the extension (documented 50% discount) · saved-state resume. Not used: provider prompt caching (system prompt ~1.7k tokens, below the cache minimum; untested).
 
 ## 4. Run it
 
@@ -137,7 +137,7 @@ The pipeline accepts **any CSV with the six source columns**, writes every stage
 * Historical, self-selected Google Play reviews: no revenue, plan tier, confirmed churn or customer population. Cancellation language is expressed intent, not observed churn; no revenue-at-risk or causal claims are made.
 * Labels come from a small model with code validation; topic/intent agreement with my golden set is ~88–90%. `other.o1` ("general criticism", 31,775 complaints) ranks #1 by score but is non-actionable by definition; the memo says so. Priority = severity sum favors volume over per-complaint severity (`access.a1` has the highest mean severity).
 * Bucket `usability.u2` and `billing.b3` overlap in the underlying complaints (controls behind Premium); counts are not additive across issues.
-* **Rates are assumptions** (`cost/rates.csv`): Haiku $0.80/$4.00 per M tokens and a 50% Batch discount were not verified against a provider invoice. Local compute/electricity: unknown, not measured. Timeout charges, if any, are unknown.
+* **Costs:** my first draft assumed Haiku rates of $0.80/$4.00 per M tokens, about 8× too high; I corrected this after comparing with the Console (token counts matched, dollars did not) and the official pricing page. All `cost_usd` fields, `cost/rates.csv`, `cost/report.md` and the calculator now use the official rates (`rates_version: official-2026-10-20`). Local compute/electricity: unknown, not measured. Timeout charges, if any, are unknown. One Batch (2,200 requests) queued for the optional extension was canceled before any request completed.
 * Verification independence is partial (same model family); fallback tier unused.
 * Trend view in the dashboard shows complaint share per month with denominators; it is descriptive only.
 

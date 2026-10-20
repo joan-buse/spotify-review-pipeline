@@ -11,10 +11,9 @@ from .prepare import connect
 from .enrich import render_user, parse_output, build_result
 from .prompts import ENRICH_SYSTEM
 
-BATCH_MULTIPLIER = 0.5  # ASSUMED provider batch discount (cost/rates.csv, item batch_multiplier); verify against the console
 
 
-def submit(run_dir, max_texts, per_request=50, est_cost_per_text=0.000118):
+def submit(run_dir, max_texts, per_request=50, est_cost_per_text=0.0000292):
     load_env(); run_dir = Path(run_dir); db = connect(run_dir / "state" / "state.sqlite"); client = anthropic.Anthropic(max_retries=2)
     pend = db.execute("""SELECT text_hash, rep_id, text FROM texts WHERE text_hash NOT IN (SELECT text_hash FROM results)
                          AND text_hash NOT IN (SELECT text_hash FROM failures) ORDER BY rowid LIMIT ?""", (max_texts,)).fetchall()
@@ -66,7 +65,7 @@ def collect(run_dir, poll_s=30, wait=True):
             total_in = usage["input_tokens"] + usage["cache_read_input_tokens"] + usage["cache_creation_input_tokens"]
             log.write({"request_id": m.id, "role": "enrich", "review_ids": ids, "model": ENRICH_MODEL, "phase": phase, "outcome": "succeeded",
                        "label_config": LABEL_CONFIG, "input_tokens": total_in, "output_tokens": usage["output_tokens"], "usage": usage,
-                       "cost_usd": round(cost, 6), "processing_tier": "batch", "batch_multiplier_assumed": BATCH_MULTIPLIER,
+                       "cost_usd": round(cost, 6), "processing_tier": "batch", "batch_multiplier": BATCH_MULTIPLIER,
                        "custom_id": res.custom_id, "stop_reason": m.stop_reason, "ts": time.time()})
             stats["requests_ok"] += 1; stats["cost_usd"] += cost
             raw = "".join(x.text for x in m.content if x.type == "text")

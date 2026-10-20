@@ -259,7 +259,7 @@
   ],
   "hash_convention": "Reference/benchmark: canonical UTF-8 JSON via canonical(); input files and audit script: exact bytes.",
   "input_files_sha256": {
-    "calls.jsonl.gz": "50f1e2601439c24de77f10606fba3618a732864649e42b9f625bd42803226dc8",
+    "calls.jsonl.gz": "e085e36acb9e305f4e5fd3319484eb8548fb06c2c207b0847b00582295b01061",
     "checkpoint_after.json": "0b3d3cd066621efff4a394796422e3dda386d2e1cc72cd55a1f006c67d43826e",
     "checkpoint_before.json": "0b4e15fb8a7c54d8fce811ae1820a81b8e06141903717dd0932a2d33658f7f69",
     "claims.csv": "893bfc46a4b40621b1cad07085b9d4b726e1acfa138997f9588a997b9511f6b9",
